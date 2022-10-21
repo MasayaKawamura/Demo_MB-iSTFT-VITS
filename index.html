@@ -56,7 +56,8 @@
         <section class="jumbotron text-center">
     <div class="container">
         
-            <h1 class="jumbotron-heading">Fast and high-fidelity end-to-end text-to-speech for edge devices with multi-band generation and inverse short-time Fourier transform</h1>
+            <h1 class="jumbotron-heading">Fast and high-fidelity end-to-end text-to-speech
+                with<br> multi-band generation and inverse short-time Fourier transform</h1>
         
         
             <p class="lead">
@@ -65,231 +66,259 @@
             <p class="lead">
                 <sup>1</sup>The University of Tokyo, Tokyo, Japan<br>
                 <sup>2</sup>LINE Corp., Japan.<br>
-                <sup>*</sup>Work done during an internship at LINE corporation<br>
+                <sup>*</sup>Work done during an internship at LINE corporation<br><br>
+
             </p>
+            <p class="lead">
+                Submitted to ICASSP 2023<br>
+                [<a href="">Paper</a>] [<a href="">Code</a>]
+            </p>
+            
+
+
         
     </div>
 </section>
         
             <p><link rel="stylesheet" type="text/css" href="style.css"></p>
 <div class="container">
+    <div class="row"><h2>Abstract</h2></div>
+    
     <div class="row">
-        <p class="lead text-left">
+        <p class="lead">
+            We propose a lightweight end-to-end text-to-speech model using multi-band generation and inverse short-time Fourier transform.
+            Our model is based on VITS, a high-quality end-to-end text-to-speech model, but adopts two changes for more efficient inference: 1) 
+            the most computationally expensive component is replaced with a simple inverse short-time Fourier transform, and 2) multi-band 
+            generation, with fixed or trainable synthesis filters, is used to generate waveforms.
+            Unlike conventional lightweight models, which employ optimization or knowledge distillation separately to train two cascaded 
+            components, our method enjoys the full benefits of end-to-end optimization. 
+            Experimental results show that our model synthesized speech as natural as that synthesized by VITS, while achieving a real-time factor of 0.066 on an Intel Core i7 CPU, 
+            4.1 times faster than VITS. Moreover, a smaller version of the model significantly outperformed a lightweight baseline model with respect to both naturalness and inference speed. 
+            We provide <a href="">our code</a> for reproducibility.
+        </p>
+    </div>
+    <div align="center">
+        <img src="images/proposed_figure.png" width="100%">
+    </div>
+    <div class="row"><h2>Demo</h2></div>
+    <div class="row">
+        <p class="lead">
             This is an accompanying page and includes some examples of the synthesized speech obtained with the proposed and conventional methods.
             The groundtruth audio clips are from the LJ speech dataset [1].  
             These clips are not included in the training data. 
+            
         </p>
 
     </div>
 </div>
 <p><br></p>
 
-<div class="album">
-    <div class="fluid-container">
-        <div class="row">
-            <div class="col-1">
-            </div>
-            <table class="table light col-10" style="table-layout: fixed;">
-                <thead>
-                    <tr align="center">
-                        <th>Ground Truth</th>
-                        <th>VITS [2]</th>
-                        <th>Nix-TTS [3]</th>
-                        <th>iSTFT-VITS</th>
-                        <th><b>MB-iSTFT-VITS</b></th>
-                        <th><b>MS-iSTFT-VITS</b></th>
-                        <th>Mini-VITS</th>
-                        <th>Mini-iSTFT-VITS</th>
-                        <th><b>Mini-MB-iSTFT-VITS</b></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-<td class="none" style="border:none;" colspan="9">
-    Text: Weedon and Lecasser to twelve and six months respectively in Coldbath Fields.
-</tr style="border:none;"><tr>
+    <table  class="table light col-7" style="table-layout: fixed;">
+        <thead>
+            <tr>
+                <th style="vertical-align:middle" style="text-align: center" class="td_fixed">Model</th>
+                <th style="text-align: center"  >Text: Weedon and Lecasser to twelve <br>and six months respectively in Coldbath Fields.</th>
+                <th style="text-align: center"  >Text: There among the ruins <br>they still live in the same kind of houses,</th>
+                <th style="text-align: center"  >Text: Mrs. De Mohrenschildt thought that Oswald,</th>
+                <th style="text-align: center" >Text: carbohydrates (starch, cellulose) and fats.</th>
 
-    
-</td>
+            </tr>
+        </thead>
+        <tbody>
 
 
-</tr><tr>
-<td style="border:none;">
-    <audio controls preload="metadata" src="demo/Sample_LJ012-0015/GT_LJ012-0015.mp3">
-    </audio>
-</td>
-<td style="border:none;">
-    <audio controls preload="metadata" src="demo/Sample_LJ012-0015/VITS_LJ012-0015.mp3">
-    </audio>
-</td style="border:none;">
-<td style="border:none;">
-    <audio controls preload="metadata" src="demo/Sample_LJ012-0015/NixTTS_LJ012-0015.mp3">
-    </audio>
-</td>
-<td style="border:none;">
-    <audio controls preload="metadata" src="demo/Sample_LJ012-0015/VITS+iSTFTNet_LJ012-0015.mp3">
-    </audio>
-</td>
-<td style="border:none;">
-    <audio controls preload="metadata" src="demo/Sample_LJ012-0015/VITS+Multiband_iSTFTNet_LJ012-0015.mp3">
-    </audio>
-</td>
-<td style="border:none;">
-    <audio controls preload="metadata" src="demo/Sample_LJ012-0015/VITS+Multistream_iSTFTNet_LJ012-0015.mp3">
-    </audio>
-</td>
-<td style="border:none;">
-    <audio controls preload="metadata" src="demo/Sample_LJ012-0015/MiniVITS_LJ012-0015.mp3">
-    </audio>
-</td>
-<td style="border:none;">
-    <audio controls preload="metadata" src="demo/Sample_LJ012-0015/MiniVITS+iSTFTNet_LJ012-0015.mp3">
-    </audio>
-</td>
-<td style="border:none;">
-    <audio controls preload="metadata" src="demo/Sample_LJ012-0015/MiniVITS+Multiband_iSTFTNet_LJ012-0015.mp3">
-    </audio>
-</td>
-
-</tr><tr>
-    <td class="font-weight-normal" style="vertical-align: middle;" colspan="9">
-    Text: There among the ruins they still live in the same kind of houses,
-    
-</td>
-</tr><tr>
-    <td style="border:none;">
+<tr>
+    <td style="vertical-align:middle" style="text-align: center"  class="td_fixed">Ground truth</td>
+    <td >
+        <audio controls preload="metadata" src="demo/Sample_LJ012-0015/GT_LJ012-0015.mp3">
+        </audio>
+    </td >
+    <td >
         <audio controls preload="metadata" src="demo/Sample_LJ028-0410/GT_LJ028-0410.mp3">
         </audio>
     </td>
-    <td style="border:none;">
-        <audio controls preload="metadata" src="demo/Sample_LJ028-0410/VITS_LJ028-0410.mp3">
-        </audio>
-    </td style="border:none;">
-    <td style="border:none;">
-        <audio controls preload="metadata" src="demo/Sample_LJ028-0410/NixTTS_LJ028-0410.mp3">
-        </audio>
-    </td>
-    <td style="border:none;">
-        <audio controls preload="metadata" src="demo/Sample_LJ028-0410/VITS+iSTFTNet_LJ028-0410.mp3">
-        </audio>
-    </td>
-    <td style="border:none;">
-        <audio controls preload="metadata" src="demo/Sample_LJ028-0410/VITS+Multiband_iSTFTNet_LJ028-0410.mp3">
-        </audio>
-    </td>
-    <td style="border:none;">
-        <audio controls preload="metadata" src="demo/Sample_LJ028-0410/VITS+Multistream_iSTFTNet_LJ028-0410.mp3">
-        </audio>
-    </td>
-    <td style="border:none;">
-        <audio controls preload="metadata" src="demo/Sample_LJ028-0410/MiniVITSLJ028-0410.mp3">
-        </audio>
-    </td>
-    <td style="border:none;">
-        <audio controls preload="metadata" src="demo/Sample_LJ028-0410/MiniVITS+iSTFTNet_LJ028-0410.mp3">
-        </audio>
-    </td>
-    <td style="border:none;">
-        <audio controls preload="metadata" src="demo/Sample_LJ028-0410/MiniVITS+Multiband_iSTFTNet_LJ028-0410.mp3">
-        </audio>
-    </td>
-    
-    </tr><tr>
-        <td class="font-weight-normal" style="vertical-align: middle;" colspan="9">
-        Text: Mrs. De Mohrenschildt thought that Oswald,
-        
-    </td>
-    
-    </tr><tr>
-    
-    <td style="border:none;">
+    <td >
         <audio controls preload="metadata" src="demo/Sample_LJ045-0096/GT_LJ045-0096.mp3">
         </audio>
     </td>
-    <td style="border:none;">
-        <audio controls preload="metadata" src="demo/Sample_LJ045-0096/VITS_LJ045-0096.mp3">
+    <td >
+        <audio controls preload="metadata" src="demo/Sample_LJ026-0054/GT_LJ026-0054.mp3">
         </audio>
     </td>
-    <td style="border:none;">
-        <audio controls preload="metadata" src="demo/Sample_LJ045-0096/NixTTS_LJ045-0096.mp3">
-        </audio>
-    </td>
-    <td style="border:none;">
-        <audio controls preload="metadata" src="demo/Sample_LJ045-0096/VITS+iSTFTNet_LJ045-0096.mp3">
-        </audio>
-    </td>
-    <td style="border:none;">
-        <audio controls preload="metadata" src="demo/Sample_LJ045-0096/VITS+Multiband_iSTFTNet_LJ045-0096.mp3">
-        </audio>
-    </td>
-    <td style="border:none;">
-        <audio controls preload="metadata" src="demo/Sample_LJ045-0096/VITS+Multistream_iSTFTNet_LJ045-0096.mp3">
-        </audio>
-    </td>
-    <td style="border:none;">
-        <audio controls preload="metadata" src="demo/Sample_LJ045-0096/MiniVITS_LJ045-0096.mp3">
-        </audio>
-    </td>
-    <td style="border:none;">
-        <audio controls preload="metadata" src="demo/Sample_LJ045-0096/MiniVITS+iSTFTNet_LJ045-0096.mp3">
-        </audio>
-    </td>
-    <td style="border:none;">
-        <audio controls preload="metadata" src="demo/Sample_LJ045-0096/MiniVITS+Multiband_iSTFTNet_LJ045-0096.mp3">
-        </audio>
-    </td>
-</tr><tr>
-    <td class="font-weight-normal" style="vertical-align: middle;" colspan="9">
-    Text: carbohydrates (starch, cellulose) and fats.
-    
-</td>
+</tr>
 
-</tr><tr>
 
-<td style="border:none;">
-    <audio controls preload="metadata" src="demo/Sample_LJ026-0054/GT_LJ026-0054.mp3">
+<tr>
+<td style="vertical-align:middle" style="text-align: center"  class="td_fixed">VITS [2]</td>
+<td >
+    <audio controls preload="metadata" src="demo/Sample_LJ012-0015/VITS_LJ012-0015.mp3">
+    </audio>
+</td >
+<td >
+    <audio controls preload="metadata" src="demo/Sample_LJ028-0410/VITS_LJ028-0410.mp3">
     </audio>
 </td>
-<td style="border:none;">
+<td >
+    <audio controls preload="metadata" src="demo/Sample_LJ045-0096/VITS_LJ045-0096.mp3">
+    </audio>
+</td>
+<td >
     <audio controls preload="metadata" src="demo/Sample_LJ026-0054/VITS_LJ026-0054.mp3">
     </audio>
 </td>
-<td style="border:none;">
-    <audio controls preload="metadata" src="demo/Sample_LJ026-0054/NixTTS_LJ026-0054.mp3">
-    </audio>
-</td>
-<td style="border:none;">
-    <audio controls preload="metadata" src="demo/Sample_LJ026-0054/VITS+iSTFTNet_LJ026-0054.mp3">
-    </audio>
-</td>
-<td style="border:none;">
-    <audio controls preload="metadata" src="demo/Sample_LJ026-0054/VITS+Multiband_iSTFTNet_LJ026-0054.mp3">
-    </audio>
-</td>
-<td style="border:none;">
-    <audio controls preload="metadata" src="demo/Sample_LJ026-0054/VITS+Multistream_iSTFTNet_LJ026-0054.mp3">
-    </audio>
-</td>
-<td style="border:none;">
-    <audio controls preload="metadata" src="demo/Sample_LJ026-0054/MiniVITS_LJ026-0054.mp3">
-    </audio>
-</td>
-<td style="border:none;">
-    <audio controls preload="metadata" src="demo/Sample_LJ026-0054/MiniVITS+iSTFTNet_LJ026-0054.mp3">
-    </audio>
-</td>
-<td style="border:none;">
-    <audio controls preload="metadata" src="demo/Sample_LJ026-0054/MiniVITS+Multiband_iSTFTNet_LJ026-0054.mp3">
-    </audio>
-</td>
-    <tr></tr>
+</tr>
+
+<tr>
+    <td style="vertical-align:middle" style="text-align: center"  class="td_fixed">Nix-TTS [3]</td>
+    <td >
+        <audio controls preload="metadata" src="demo/Sample_LJ012-0015/NixTTS_LJ012-0015.mp3">
+        </audio>
+    </td >
+    <td >
+        <audio controls preload="metadata" src="demo/Sample_LJ028-0410/NixTTS_LJ028-0410.mp3">
+        </audio>
+    </td>
+    <td >
+        <audio controls preload="metadata" src="demo/Sample_LJ045-0096/NixTTS_LJ045-0096.mp3">
+        </audio>
+    </td>
+    <td >
+        <audio controls preload="metadata" src="demo/Sample_LJ026-0054/NixTTS_LJ026-0054.mp3">
+        </audio>
+    </td>
+  
+
+    </tr>
+    <tr>
+        <td style="vertical-align:middle" style="text-align: center"  class="td_fixed">iSTFT-VITS</td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ012-0015/VITS+iSTFTNet_LJ012-0015.mp3">
+            </audio>
+        </td >
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ028-0410/VITS+iSTFTNet_LJ028-0410.mp3">
+            </audio>
+        </td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ045-0096/VITS+iSTFTNet_LJ045-0096.mp3">
+            </audio>
+        </td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ026-0054/VITS+iSTFTNet_LJ026-0054.mp3">
+            </audio>
+        </td>
+      
+    
+    </tr>
+    <tr>
+        <td style="vertical-align:middle" style="text-align: center"  class="td_fixed"><u>MB-iSTFT-VITS</u></td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ012-0015/VITS+Multiband_iSTFTNet_LJ012-0015.mp3">
+            </audio>
+        </td >
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ028-0410/VITS+Multiband_iSTFTNet_LJ028-0410.mp3">
+            </audio>
+        </td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ045-0096/VITS+Multiband_iSTFTNet_LJ045-0096.mp3">
+            </audio>
+        </td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ026-0054/VITS+Multiband_iSTFTNet_LJ026-0054.mp3">
+            </audio>
+        </td>
+      
+    
+    </tr>
+    <tr>
+        <td style="vertical-align:middle" style="text-align: center"  class="td_fixed"><u>MS-iSTFT-VITS</u></td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ012-0015/VITS+Multistream_iSTFTNet_LJ012-0015.mp3">
+            </audio>
+        </td >
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ028-0410/VITS+Multistream_iSTFTNet_LJ028-0410.mp3">
+            </audio>
+        </td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ045-0096/VITS+Multistream_iSTFTNet_LJ045-0096.mp3">
+            </audio>
+        </td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ026-0054/VITS+Multistream_iSTFTNet_LJ026-0054.mp3">
+            </audio>
+        </td>
+      
+    
+    </tr>
+    <tr>
+        <td style="vertical-align:middle" style="text-align: center"  class="td_fixed">Mini-VITS</td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ012-0015/MiniVITS_LJ012-0015.mp3">
+            </audio>
+        </td >
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ028-0410/MiniVITS_LJ028-0410.mp3">
+            </audio>
+        </td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ045-0096/MiniVITS_LJ045-0096.mp3">
+            </audio>
+        </td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ026-0054/MiniVITS_LJ026-0054.mp3">
+            </audio>
+        </td>
+      
+    
+    </tr>
+    <tr>
+        <td style="vertical-align:middle" style="text-align: center"  class="td_fixed">Mini-iSTFT-VITS</td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ012-0015/MiniVITS+iSTFTNet_LJ012-0015.mp3">
+            </audio>
+        </td >
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ028-0410/MiniVITS+iSTFTNet_LJ028-0410.mp3">
+            </audio>
+        </td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ045-0096/MiniVITS+iSTFTNet_LJ045-0096.mp3">
+            </audio>
+        </td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ026-0054/MiniVITS+iSTFTNet_LJ026-0054.mp3">
+            </audio>
+        </td>
+      
+      
+    
+    </tr>
+    <tr>
+        <td style="vertical-align:middle" style="text-align: center"  class="td_fixed"><u>Mini-MB-iSTFT-VITS</u></td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ012-0015/MiniVITS+Multiband_iSTFTNet_LJ012-0015.mp3">
+            </audio>
+        </td >
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ028-0410/MiniVITS+Multiband_iSTFTNet_LJ028-0410.mp3">
+            </audio>
+        </td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ045-0096/MiniVITS+Multiband_iSTFTNet_LJ045-0096.mp3">
+            </audio>
+        </td>
+        <td >
+            <audio controls preload="metadata" src="demo/Sample_LJ026-0054/MiniVITS+Multiband_iSTFTNet_LJ026-0054.mp3">
+            </audio>
+        </td>
+      
+    
+    </tr>
                 </tbody>
             </table>
-            <div class="col-1">
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <div class="container">
     <h1>References</h1>
